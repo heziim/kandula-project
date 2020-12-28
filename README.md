@@ -4,7 +4,7 @@ The mighty warrior elephant who saved us!
 :elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant:
 
 What i've done:
-* create vm with opsschool ami
+* create instance with opsschool ami
 * attach IAMrole (with AmazonEC2ReadOnlyAccess policy only)
 * go to instance and "git clone https://github.com/heziim/kandula_assignment.git"
 * add "ENV AWS_DEFAULT_REGION=us-east-1" to the  Dockerfile
