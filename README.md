@@ -3,7 +3,9 @@ The mighty warrior elephant who saved us!
 
 :elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant::elephant:
 
-What i've done:
+## What i've done:
+
+### Build kandula container
 * create instance with opsschool ami + install docker
 * attach IAMrole (with AmazonEC2ReadOnlyAccess policy only)
 * go to instance and "git clone https://github.com/heziim/kandula_assignment.git"
@@ -13,6 +15,7 @@ What i've done:
 * go to external ip of the instance in port 80 and view kandula data OK
 
 -----
+### Deploy kandula on k8s
 * deploy eks with https://github.com/ops-school/kubernetes/tree/main/eks-terraform
 ```
 [hezi@ninja pods]$ cat pod-svc.yaml
