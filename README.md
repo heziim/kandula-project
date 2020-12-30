@@ -56,7 +56,7 @@ spec:
 kubectl create -f pod-svc.yaml
 kubectl create -f kandula.yaml
 ```
-* attach ec2 readonly policy to IAM role that attach to the wks workers
+* attach ec2-readonly policy to IAM role that attach to the eks workers
 * go to LB address and view kandula OK 
 
 
