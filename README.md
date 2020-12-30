@@ -9,6 +9,7 @@ This project will demonstrate a deploy of kandula app in small prod-like environ
 Follow these instructions in order to build the infrastructure for kandula and run it!<br><br>
 
 ### Prerequisites
+-
 * [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
 ### HowTO
