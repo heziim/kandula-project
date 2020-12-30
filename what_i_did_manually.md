@@ -1,4 +1,4 @@
-#What i've done:
+# What i've done:
 
 ## Build kandula container
 * create instance with opsschool ami + install docker
