@@ -14,4 +14,46 @@ What i've done:
 
 -----
 * deploy eks with https://github.com/ops-school/kubernetes/tree/main/eks-terraform
+```
+[hezi@ninja pods]$ cat pod-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: kandula
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000
+      nodePort: 30036
+      protocol: TCP
+[hezi@ninja pods]$
+[hezi@ninja pods]$ cat kandula.yaml
+# Create a pod and expose port 5000
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kandula-pod
+  labels:
+    app: kandula
+spec:
+  containers:
+    - image: heziim/kandula:1.1
+      name: kandula
+      ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+[hezi@ninja pods]$
+```
+```
+kubectl create -f pod-svc.yaml
+kubectl create -f kandula.yaml
+```
+* attach ec2 readonly policy to IAM role that attach to the wks workers
+* go to LB address and view kandula OK 
+
 
