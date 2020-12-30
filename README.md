@@ -11,3 +11,7 @@ What i've done:
 * docker build -t heziim/kandula:1.0 kandula_assignment/
 * docker run -d -p 80:5000 heziim/kandula:1.0
 * go to external ip of the instance in port 80 and view kandula data OK
+
+
+* deploy exs with https://github.com/ops-school/kubernetes/tree/main/eks-terraform
+
