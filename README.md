@@ -6,5 +6,5 @@
 
 
 ## Prerequisites
-* [Terrform] (https://learn.hashicorp.com/tutorials/terraform/install-cli)
+* [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
