@@ -1,16 +1,16 @@
 #What i've done:
 
 ## Build kandula container
-*create instance with opsschool ami + install docker
-*attach IAMrole (with AmazonEC2ReadOnlyAccess policy only)
-*go to instance and "git clone https://github.com/heziim/kandula_assignment.git"
-*add "ENV AWS_DEFAULT_REGION=us-east-1" to the Dockerfile
-*docker build -t heziim/kandula:1.0 kandula_assignment/
-*docker run -d -p 80:5000 heziim/kandula:1.0
-*go to external ip of the instance in port 80 and view kandula data OK
+* create instance with opsschool ami + install docker
+* attach IAMrole (with AmazonEC2ReadOnlyAccess policy only)
+* go to instance and "git clone https://github.com/heziim/kandula_assignment.git"
+* add "ENV AWS_DEFAULT_REGION=us-east-1" to the Dockerfile
+* docker build -t heziim/kandula:1.0 kandula_assignment/
+* docker run -d -p 80:5000 heziim/kandula:1.0
+* go to external ip of the instance in port 80 and view kandula data OK
 ---
 ## Deploy kandula on k8s
-*deploy eks with https://github.com/ops-school/kubernetes/tree/main/eks-terraform
+* deploy eks with https://github.com/ops-school/kubernetes/tree/main/eks-terraform
 ```
 [hezi@ninja pods]$ cat pod-svc.yaml
 apiVersion: v1
@@ -50,5 +50,5 @@ spec:
 kubectl create -f pod-svc.yaml
 kubectl create -f kandula.yaml
 ```
-*attach ec2-readonly policy to IAM role that attach to the eks workers
-*go to LB address and view kandula OK
+* attach ec2-readonly policy to IAM role that attach to the eks workers
+* go to LB address and view kandula OK
