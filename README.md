@@ -16,6 +16,6 @@ Follow these instructions in order to build the infrastructure for kandula and r
 
 ### HowTO
 1. clone the repo 
-'''
+```
 git clone https://github.com/heziim/kandula-project.git
-'''
+```
