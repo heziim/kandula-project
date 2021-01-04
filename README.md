@@ -10,6 +10,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
 
 ### Prerequisites
 
-* [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+* [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) installed in your computer
+* Setup [aws credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
 ### HowTO
