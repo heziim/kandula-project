@@ -35,10 +35,10 @@
 #  value       = module.eks.config_map_aws_auth
 #}
 
-#output "cluster_name" {
-#  description = "Kubernetes Cluster Name"
-#  value       = local.cluster_name
-#}
+output "cluster_name" {
+  description = "Kubernetes Cluster Name"
+  value       = local.cluster_name
+}
 
 output "consul_servers" {
   value = aws_instance.consul_server.*.public_ip
