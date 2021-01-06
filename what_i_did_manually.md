@@ -90,8 +90,10 @@ kubectl apply -f aws-auth-cm.yaml
 kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster-admin --user=system:anonymous
 ```
 
-* add to kandula.yaml
+* add to kandula.yaml:
+```
 spec:
   serviceAccountName: kandula-sa
   automountServiceAccountToken: false
   ...
+```
