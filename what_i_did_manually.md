@@ -52,3 +52,48 @@ kubectl create -f kandula.yaml
 ```
 * attach ec2-readonly policy to IAM role that attach to the eks workers
 * go to LB address and view kandula OK
+
+
+
+---
+## Deploy kandula on eks from jenkins pipeline
+
+* create and attach role with admin access to jenkins agent
+* after deploy of eks, add new cred in jenkins and put there the kubeconfig file 
+```
+cat kubeconfig_kandula_hezi
+```
+* edit the aws-auth-cm.yaml
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::636145310078:role/kandula_hezi2021010609295916000000000a
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::636145310078:instance-profile/aws_cli
+      username: aws_cli
+      groups:
+        - system:masters
+        
+```
+* take the rolearn from "kubectl get configmap aws-auth -n kube-system -o yaml"
+```
+aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
+kubectl apply -f aws-auth-cm.yaml
+kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster-admin --user=system:anonymous
+```
+
+* add to kandula.yaml:
+```
+spec:
+  serviceAccountName: kandula-sa
+  automountServiceAccountToken: false
+  ...
+```
