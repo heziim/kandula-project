@@ -38,6 +38,7 @@ resource "aws_instance" "jenkins_agents" {
   subnet_id = module.vpc.private_subnets_ids[count.index]
   key_name = aws_key_pair.kandula_key.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh_only.id]
+  iam_instance_profile   = aws_iam_instance_profile.admin-access.name
   tags = {
     Name = "jenkins_agent${count.index}"
   }

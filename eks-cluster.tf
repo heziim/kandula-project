@@ -1,5 +1,7 @@
 locals {
   cluster_name = "kandula_hezi"
+  k8s_service_account_namespace = "default"
+  k8s_service_account_name      = "kandula-sa"
 }
 
 module "eks" {
@@ -8,7 +10,9 @@ module "eks" {
   cluster_version = var.kubernetes_version
   subnets         = module.vpc.private_subnets_ids
 
-  #write_kubeconfig = true
+  write_kubeconfig = true
+  enable_irsa = true
+
   
   tags = {
     Environment = "kandula"
@@ -50,3 +54,13 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
 }
 
+resource "kubernetes_service_account" "kandula_sa" {
+  metadata {
+    name      = local.k8s_service_account_name
+    namespace = local.k8s_service_account_namespace
+    annotations = {
+      "eks.amazonaws.com/role-arn" = module.iam_assumable_role_admin.this_iam_role_arn
+    }
+  }
+  depends_on = [module.eks]
+}
