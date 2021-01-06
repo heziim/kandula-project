@@ -35,3 +35,4 @@ Follow these instructions in order to build the infrastructure for kandula and r
     kubectl apply -f aws-auth-cm.yaml
     kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster-admin --user=system:anonymous
     ```
+    * buid the pipeline
