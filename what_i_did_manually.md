@@ -60,6 +60,9 @@ kubectl create -f kandula.yaml
 
 * create and attach role with admin access to jenkins agent
 * after deploy of eks, add new cred in jenkins and put there the kubeconfig file 
+```
+cat kubeconfig_kandula_hezi
+```
 * edit the aws-auth-cm.yaml
 ```
 apiVersion: v1
