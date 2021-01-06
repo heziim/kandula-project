@@ -89,3 +89,9 @@ aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
 kubectl apply -f aws-auth-cm.yaml
 kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster-admin --user=system:anonymous
 ```
+
+* add to kandula.yaml
+spec:
+  serviceAccountName: kandula-sa
+  automountServiceAccountToken: false
+  ...
