@@ -21,5 +21,6 @@ Follow these instructions in order to build the infrastructure for kandula and r
     ```
 2. Spin up the infrastructure
     ```
+     terraform init
      terraform apply
      ```
