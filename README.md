@@ -24,3 +24,14 @@ Follow these instructions in order to build the infrastructure for kandula and r
      terraform init
      terraform apply
      ```
+     
+ 3. setup jenkins
+    * install plugins:
+    * connect the agents:
+    * create kubernetes credentials (copy kubeconfig content. to see it run "cat kubeconfig_kandula_hezi")
+    * update aws-auth-cm.yaml, take the rolearn from "kubectl get configmap aws-auth -n kube-system -o yaml"
+    ```
+    aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
+    kubectl apply -f aws-auth-cm.yaml
+    kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster-admin --user=system:anonymous
+    ```
