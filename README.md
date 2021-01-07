@@ -30,7 +30,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
     aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
     kubectl edit configmap aws-auth -n kube-system
     ```
-    * add this group section: (XXXX is your user arn)
+    * add this group to "mapRoles:" section (XXXX is your user arn):
     ```
     - "groups":
       - system:masters
