@@ -32,7 +32,13 @@ Follow these instructions in order to build the infrastructure for kandula and r
     * update aws-auth-cm.yaml, take the rolearn from "kubectl get configmap aws-auth -n kube-system -o yaml"
     ```
     aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
-    kubectl apply -f aws-auth-cm.yaml
-    kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster-admin --user=system:anonymous
+    kubectl edit configmap aws-auth -n kube-system
+    ```
+    * add this group section:
+    ```
+    - "groups":
+      - system:masters
+      "rolearn": arn:aws:iam::636145310078:role/admin-access
+      "username": admin-access
     ```
     * buid the pipeline
