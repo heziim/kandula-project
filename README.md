@@ -25,20 +25,21 @@ Follow these instructions in order to build the infrastructure for kandula and r
      terraform apply
      ```
      
- 3. setup jenkins
-    * install plugins:
-    * connect the agents:
-    * create kubernetes credentials (copy kubeconfig content. to see it run "cat kubeconfig_kandula_hezi")
-    * update aws-auth-cm.yaml, take the rolearn from "kubectl get configmap aws-auth -n kube-system -o yaml"
+3. setup eks
     ```
     aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
     kubectl edit configmap aws-auth -n kube-system
     ```
-    * add this group section:
+    * add this group section: (XXXX is your user arn)
     ```
     - "groups":
       - system:masters
-      "rolearn": arn:aws:iam::636145310078:role/admin-access
+      "rolearn": arn:aws:iam::XXXXX:role/admin-access
       "username": admin-access
     ```
-    * buid the pipeline
+    
+4. setup jenkins
+   * install plugins:
+   * connect the agents:
+   * create kubernetes credentials (copy kubeconfig content. locate in  your home dir under .kube/config"
+   * buid the pipeline
