@@ -44,6 +44,6 @@ Follow these instructions in order to build the infrastructure for kandula and r
    * create kubernetes credentials (copy kubeconfig content. locate in  your home dir under .kube/config"
    * cretae github credentials & connect github to jenkins via githubAPP
    * buid the pipeline ( new item -> pick "MultiBranch pipeline" & give the pipeline a name -> add "GitHub" source in Branch Sources -> pick the right credentials)
-   * develop [kandula](https://github.com/heziim/kandula_assignment) in feature branch ->  open pull request -> Kandula will be up on k8s lb 
+   * develop [kandula](https://github.com/heziim/kandula_assignment) in feature branch ->  open pull request -> Kandula will be up on k8s lb (run "kubectl get svc lb" in order to see the lb dns name)
 
 
