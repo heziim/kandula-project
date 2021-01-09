@@ -42,4 +42,5 @@ Follow these instructions in order to build the infrastructure for kandula and r
    * install plugins:
    * connect the agents:
    * create kubernetes credentials (copy kubeconfig content. locate in  your home dir under .kube/config"
+   * cretae github credentials & connect github to jenkins via githubAPP
    * buid the pipeline
