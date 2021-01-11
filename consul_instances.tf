@@ -51,18 +51,19 @@ data "template_file" "consul_server" {
   }
 }
 
-/*
+
 data "template_file" "consul_client" {
   #count    = var.clients
+  count    = 3
   template = file("templates/consul.sh.tpl")
 
   vars = {
       consul_version = var.consul_version
       config = <<EOF
-        "node_name": "agent-${count.index+1}",
+        "node_name": "jenkins-${count.index+1}",
         "enable_script_checks": true,
         "server": false
       EOF
   }
 }
-*/
+
