@@ -10,7 +10,6 @@ module "eks" {
   cluster_version = var.kubernetes_version
   subnets         = module.vpc.private_subnets_ids
 
-  write_kubeconfig = true
   enable_irsa = true
 
   
