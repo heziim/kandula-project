@@ -30,7 +30,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
     aws eks --region=us-east-1 update-kubeconfig --name kandula_hezi
     kubectl edit configmap aws-auth -n kube-system
     ```
-    * add this group to "mapRoles:" section (XXXXX is your user arn):
+    * add this groups/role to "mapRoles:" section (XXXXX is your user arn):
     ```
     - "groups":
       - system:masters
@@ -42,7 +42,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
    * install plugins:
    * connect the agents:
    * create kubernetes credentials (copy kubeconfig content. locate in your home dir under .kube/config"
-   * cretae github credentials & connect github to jenkins via githubAPP
+   * cretae github credentials & connect github to jenkins via [githubAPP](https://github.com/settings/apps)
    * buid the pipeline ( new item -> pick "MultiBranch pipeline" & give the pipeline a name -> add "GitHub" source in Branch Sources -> pick the right credentials)
    * develop [kandula](https://github.com/heziim/kandula_assignment) in feature branch ->  open pull request -> Kandula will be up on k8s lb (run "kubectl get svc lb" in order to see the lb dns name)
 
