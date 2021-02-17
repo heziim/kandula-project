@@ -46,7 +46,10 @@ data "template_file" "consul_server" {
       "server": true,
       "bootstrap_expect": 3,
       "ui": true,
-      "client_addr": "0.0.0.0"
+      "client_addr": "0.0.0.0",
+      "telemetry": {
+        "prometheus_retention_time": "10m"
+      }
     EOF
   }
 }
