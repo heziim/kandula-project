@@ -25,7 +25,7 @@ module "eks" {
       instance_type                 = "t3.medium"
       additional_userdata           = "echo foo bar"
       asg_desired_capacity          = 2
-      additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
+      additional_security_group_ids = [aws_security_group.all_worker_mgmt.id,aws_security_group.consul.id]
    # },
    # {
    #   name                          = "worker-group-2"

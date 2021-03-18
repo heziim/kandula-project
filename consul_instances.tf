@@ -12,61 +12,29 @@ resource "aws_instance" "consul_server" {
   vpc_security_group_ids = [aws_security_group.consul.id]
 
   tags = {
-    Name = "consul-server${count.index+1}"
+    Name = "consul-server"
     consul_server = "true"
   }
-  user_data = element(data.template_file.consul_server.*.rendered, count.index)
+  #user_data = element(data.template_file.consul_server.*.rendered, count.index)
+  user_data = data.template_cloudinit_config.all-consul-server.rendered
+
 }
 
-/*
-resource "aws_instance" "consul_agent" {
 
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-  key_name = aws_key_pair.kandula_key.key_name
 
-  iam_instance_profile   = aws_iam_instance_profile.consul-join2.name
-  vpc_security_group_ids = [aws_security_group.consul.id]
-
-  tags = {
-    Name = "consul-agent-web-server"
+data "template_cloudinit_config" "all-consul-server" {
+  gzip = false
+  base64_encode = false
+  part {
+    content = data.template_file.consul_server.rendered
   }
-  user_data = data.template_cloudinit_config.web-agent.rendered
-}
-*/
-
-data "template_file" "consul_server" {
-  count    = 3
-  template = file("templates/consul.sh.tpl")
-
-  vars = {
-    consul_version = var.consul_version
-    config = <<EOF
-      "node_name": "consul-server-${count.index+1}",
-      "server": true,
-      "bootstrap_expect": 3,
-      "ui": true,
-      "client_addr": "0.0.0.0",
-      "telemetry": {
-        "prometheus_retention_time": "10m"
-      }
-    EOF
+  part {
+    content = data.template_file.filebeat.rendered
+  }
+  part {
+    content = data.template_file.node-exporter.rendered
   }
 }
 
 
-data "template_file" "consul_client" {
-  #count    = var.clients
-  count    = 3
-  template = file("templates/consul.sh.tpl")
-
-  vars = {
-      consul_version = var.consul_version
-      config = <<EOF
-        "node_name": "jenkins-${count.index+1}",
-        "enable_script_checks": true,
-        "server": false
-      EOF
-  }
-}
 

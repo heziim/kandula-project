@@ -1,3 +1,8 @@
+# get my external ip
+data "http" "myip" {
+  url = "http://ifconfig.me"
+}
+
 resource "aws_security_group" "allow_http_ssh" {
   name        = "allow_http_ssh"
   description = "Allow Http & ssh inbound traffic"
@@ -8,7 +13,7 @@ resource "aws_security_group" "allow_http_ssh" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
   }
 
   ingress {
@@ -16,7 +21,7 @@ resource "aws_security_group" "allow_http_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
   }
 
   egress {
@@ -41,7 +46,7 @@ resource "aws_security_group" "allow_ssh_only" {     # for testing
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
   }
 
   egress {
@@ -65,21 +70,21 @@ resource "aws_security_group" "kandula_jenkins_server" {
     from_port = 443
     to_port = 443
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
   }
 
   ingress {
     from_port = 8080
     to_port = 8080
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
   }
 
   ingress {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
   }
 
   egress {
@@ -133,7 +138,7 @@ resource "aws_security_group" "consul" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
     description = "Allow ssh from the world"
   }
 
@@ -141,7 +146,7 @@ resource "aws_security_group" "consul" {
     from_port   = 8500
     to_port     = 8500
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
     description = "Allow consul UI access from the world"
   }
 
@@ -149,7 +154,7 @@ resource "aws_security_group" "consul" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${data.http.myip.body}/32"]
     description = "Allow http from the world"
   }
 
@@ -161,3 +166,91 @@ resource "aws_security_group" "consul" {
     description     = "Allow all outside security group"
   }
 }
+
+
+
+resource "aws_security_group" "monitoring_server" {
+  name        = "monitoring_server"
+  description = "Security group for monitoring server"
+  vpc_id = module.vpc.vpc_id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 8
+    to_port     = 0
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+  }
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "TCP"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+    description     = "grafana ui"
+  }
+  ingress {
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "TCP"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+    description     = "prome ui"
+  }
+}
+
+resource "aws_security_group" "elk_server" {
+  name        = "elk_server"
+  description = "Security group for elk server"
+  vpc_id = module.vpc.vpc_id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 8
+    to_port     = 0
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+  }
+  ingress {
+    from_port   = 5601
+    to_port     = 5601
+    protocol    = "TCP"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+    description     = "Kibana web ui"
+  }
+  ingress {
+    from_port   = 9300
+    to_port     = 9300
+    protocol    = "TCP"
+    description     = "Elasticsearch java interface"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+  }
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "TCP"
+    description     = "Elasticsearch REST interface"
+    cidr_blocks = ["${data.http.myip.body}/32"]
+  }
+}
+

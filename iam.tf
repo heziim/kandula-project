@@ -93,3 +93,4 @@ module "iam_assumable_role_admin" {
   role_policy_arns              = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess"]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${local.k8s_service_account_namespace}:${local.k8s_service_account_name}"]
 }
+

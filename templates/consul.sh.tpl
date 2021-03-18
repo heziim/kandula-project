@@ -24,6 +24,8 @@ EOF
 
 systemctl restart systemd-resolved.service
 
+sleep 10
+
 echo "Fetching Consul..."
 cd /tmp
 curl -sLo consul.zip https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip
