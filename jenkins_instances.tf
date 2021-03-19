@@ -67,4 +67,7 @@ data "template_cloudinit_config" "all-jenkins-client" {
   part {
     content = data.template_file.node-exporter.rendered
   }
+  part {
+    content = data.template_file.inst_helm.rendered
+  }
 }

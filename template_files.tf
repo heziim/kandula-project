@@ -4,6 +4,12 @@ data "template_file" "filebeat" {
   }
 }
 
+data "template_file" "inst_helm" {
+  template = file("templates/inst_helm.sh.tpl")
+  vars = {
+  }
+}
+
 data "template_file" "node-exporter" {
   template = file("templates/node-exporter.sh.tpl")
   vars = {
