@@ -40,6 +40,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
     * create secret ( XXXXXXXX is the consul encrypt key)
     ```
     kubectl create secret generic consul-gossip-encryption-key --from-literal=key="XXXXXXXX"
+    kubectl config view --raw >~/.kube/config
     ```
     
 4. Setup Jenkins
