@@ -37,6 +37,10 @@ Follow these instructions in order to build the infrastructure for kandula and r
       "rolearn": arn:aws:iam::XXXXX:role/admin-access
       "username": admin-access
     ```
+    * create secret ( XXXXXXXX is the consul encrypt key)
+    ```
+    kubectl create secret generic consul-gossip-encryption-key --from-literal=key="XXXXXXXX"
+    ```
     
 4. Setup Jenkins
    * install plugins:
@@ -46,8 +50,23 @@ Follow these instructions in order to build the infrastructure for kandula and r
    * buid the pipeline ( new item -> pick "MultiBranch pipeline" & give the pipeline a name -> add "GitHub" source in Branch Sources -> pick the right credentials)
    * develop [kandula](https://github.com/heziim/kandula_assignment) in feature branch ->  open pull request -> Kandula will be up on k8s lb (run "kubectl get svc lb" in order to see the lb dns name)
 
-
-5. Destroy it all and leave no man behind
+5. Setup DNS
+   * Take the clusterIP of consul-dns from:
+   ```
+   kubectl get svc
+   ```
+   ```
+   kubectl edit configmap coredns -n kube-system  
+   ```
+   * Add this section after Prometheus section:
+   ```
+   consul {
+     errors
+     cache 30
+     forward . <the clusterIP of the consul-dns>
+   }  
+   
+7. Destroy it all and leave no man behind
     ```
     kubectl delete service lb
     terraform destroy --auto-approve
