@@ -44,7 +44,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
     * install the consul helm chart
     ```
     sudo helm repo add hashicorp https://helm.releases.hashicorp.com
-    helm install consul hashicorp/consul  consul-helm-values.yaml --kubeconfig ~/.kube/config --version 0.30.0
+    helm install consul hashicorp/consul  -f consul-helm-values.yaml --kubeconfig ~/.kube/config --version 0.30.0
     ```
     
 4. Setup Jenkins
