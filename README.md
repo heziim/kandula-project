@@ -10,7 +10,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
 
 ## Prerequisites
 
-* Any Linux machine with [git](https://git-scm.com/downloads) & [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) & [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
+* Any Linux machine with [git](https://git-scm.com/downloads) & [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) & [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html) & [helm3] (https://helm.sh/docs/intro/install/)
 * Setup [aws credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
 ## HowTO
@@ -72,6 +72,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
    
 7. Destroy it all and leave no man behind
     ```
+    helm uninstall consul
     kubectl delete service lb
     terraform destroy --auto-approve
     ```
