@@ -64,6 +64,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
    kubectl edit configmap coredns -n kube-system  
    ```
    * Add this section after Prometheus section:
+   ![image](https://user-images.githubusercontent.com/61164748/111886369-ccaf1e00-89d5-11eb-9422-51a30114ae3d.png)
    ```
    consul {
      errors
