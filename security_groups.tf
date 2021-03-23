@@ -250,7 +250,8 @@ resource "aws_security_group" "elk_server" {
     to_port     = 9200
     protocol    = "TCP"
     description     = "Elasticsearch REST interface"
-    cidr_blocks = ["${data.http.myip.body}/32"]
+    cidr_blocks = ["0.0.0.0/0"]
+    # cidr_blocks = ["${data.http.myip.body}/32"]
   }
 }
 

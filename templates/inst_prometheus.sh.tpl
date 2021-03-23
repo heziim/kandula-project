@@ -46,6 +46,21 @@ scrape_configs:
     static_configs:
       - targets:
         - 'grafana.service.consul:9100'
+
+  - job_name: 'kandula_app'
+    consul_sd_configs:
+    - server: 'consul.service.consul:8500'
+      services:
+        - 'lb-default'
+    relabel_configs:
+      - source_labels: ['__address__']
+        target_label: '__address__'
+        regex: '(.*):.*'
+        replacement: $1:5001
+      - source_labels: ['__meta_consul_tags']
+        target_label: 'consul_tags_name'
+      - source_labels: ['__meta_consul_dc']
+        target_label: 'consul_dc_name'
 EOF
 
 tee compose/docker-compose.yml > /dev/null <<"EOF"

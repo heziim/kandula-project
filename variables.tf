@@ -10,5 +10,6 @@ variable "kubernetes_version" {
 
 variable "consul_version" {
   description = "consul version to install"
-  default     = "1.8.5"
+#  default     = "1.8.5"
+  default     = "1.9.2"
 }
