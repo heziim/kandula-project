@@ -10,8 +10,8 @@ Follow these instructions in order to build the infrastructure for kandula and r
 
 ## Prerequisites
 
-* Any Linux machine with [git](https://git-scm.com/downloads) & [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) & [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
-* Setup [aws credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
+* Any Linux machine with [git](https://git-scm.com/downloads) & [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) & [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html) & [helm3](https://helm.sh/docs/intro/install/)
+* Setup your [aws credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
 ## HowTO
 1. Clone the repo 
@@ -43,7 +43,8 @@ Follow these instructions in order to build the infrastructure for kandula and r
     ```
     * install the consul helm chart
     ```
-     helm install consul hashicorp/consul  consul-helm-values.yaml --kubeconfig ~/.kube/config --version 0.30.0
+    sudo helm repo add hashicorp https://helm.releases.hashicorp.com
+    helm install consul hashicorp/consul  -f consul-helm-values.yaml --kubeconfig ~/.kube/config --version 0.30.0
     ```
     
 4. Setup Jenkins
@@ -63,6 +64,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
    kubectl edit configmap coredns -n kube-system  
    ```
    * Add this section after Prometheus section:
+   [here](https://user-images.githubusercontent.com/61164748/111886369-ccaf1e00-89d5-11eb-9422-51a30114ae3d.png)
    ```
    consul {
      errors
@@ -72,6 +74,7 @@ Follow these instructions in order to build the infrastructure for kandula and r
    
 7. Destroy it all and leave no man behind
     ```
+    helm uninstall consul
     kubectl delete service lb
     terraform destroy --auto-approve
     ```
