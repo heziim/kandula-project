@@ -71,7 +71,12 @@ Follow these instructions in order to build the infrastructure for kandula and r
      cache 30
      forward . <the clusterIP of the consul-dns>
    }  
-   
+
+6. Setup filebeat on k8s:
+   ```
+   kubectl apply -f filebeat-daemonset.yaml
+   ```
+
 7. Destroy it all and leave no man behind
     ```
     helm uninstall consul
